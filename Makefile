@@ -16,4 +16,4 @@ build: start add-user
 destroy:stop clean
 
 
-.PHONY: start server-ready add-user stop exec clean
+.PHONY: start add-user stop exec clean
