@@ -1,4 +1,4 @@
-start:
+run:
 	docker run --name mysql56 -e MYSQL_ROOT_PASSWORD=12345 -p 13306:3306 -d mysql/mysql-server:5.6
 add-user:
 	docker cp server_ready.sh mysql56:/tmp/server_ready.sh
@@ -11,9 +11,11 @@ exec:
 	docker exec -it mysql56 /bin/bash
 clean:
 	docker rm $$(docker ps -f name=mysql56 -aq)
+start:
+	docker start $$(docker ps -l | grep mysql56 | awk '{print $$1}')
 
 build: start add-user
 destroy:stop clean
 
 
-.PHONY: start add-user stop exec clean
+.PHONY: start add-user stop exec clean run
